@@ -201,67 +201,67 @@ const getNoteSummary = async (req, res) => {
   }
 };
 
-// // 12. GET /api/notes/filter - Filter notes by category and isPinned
-// const filterNotes = async (req, res) => {
-//   try {
-//     const { category, isPinned } = req.query;
-//     let query = {};
+// 12. GET /api/notes/filter - Filter notes by category and isPinned
+const filterNotes = async (req, res) => {
+  try {
+    const { category, isPinned } = req.query;
+    let query = {};
 
-//     if (category) {
-//       query.category = category;
-//     }
-//     if (isPinned !== undefined) {
-//       query.isPinned = isPinned === 'true';
-//     }
+    if (category) {
+      query.category = category;
+    }
+    if (isPinned !== undefined) {
+      query.isPinned = isPinned === 'true';
+    }
 
-//     const notes = await Note.find(query);
-//     res.status(200).json({
-//       success: true,
-//       message: "Notes filtered successfully",
-//       data: notes,
-//       total: notes.length
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+    const notes = await Note.find(query);
+    res.status(200).json({
+      success: true,
+      message: "Notes filtered successfully",
+      data: notes,
+      total: notes.length
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
-// // 13. GET /api/notes/filter/pinned - Get all pinned notes
-// const getPinnedNotes = async (req, res) => {
-//   try {
-//     const notes = await Note.find({ isPinned: true });
-//     res.status(200).json({
-//       success: true,
-//       message: "Pinned notes fetched successfully",
-//       data: notes,
-//       total: notes.length
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+// 13. GET /api/notes/filter/pinned - Get all pinned notes
+const getPinnedNotes = async (req, res) => {
+  try {
+    const notes = await Note.find({ isPinned: true });
+    res.status(200).json({
+      success: true,
+      message: "Pinned notes fetched successfully",
+      data: notes,
+      total: notes.length
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
-// // 14. GET /api/notes/filter/category - Filter by category name (query parameter)
-// const filterByCategory = async (req, res) => {
-//   try {
-//     const { category } = req.query;
-//     if (!category) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Category query parameter is required"
-//       });
-//     }
-//     const notes = await Note.find({ category });
-//     res.status(200).json({
-//       success: true,
-//       message: `Notes filtered by category: ${category}`,
-//       data: notes,
-//       total: notes.length
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+// 14. GET /api/notes/filter/category - Filter by category name (query parameter)
+const filterByCategory = async (req, res) => {
+  try {
+    const { category } = req.query;
+    if (!category) {
+      return res.status(400).json({
+        success: false,
+        message: "Category query parameter is required"
+      });
+    }
+    const notes = await Note.find({ category });
+    res.status(200).json({
+      success: true,
+      message: `Notes filtered by category: ${category}`,
+      data: notes,
+      total: notes.length
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 // // 15. GET /api/notes/filter/date-range - Filter by date range
 // const filterByDateRange = async (req, res) => {
