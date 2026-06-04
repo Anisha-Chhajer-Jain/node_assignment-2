@@ -396,31 +396,31 @@ const sortNotes = async (req, res) => {
   }
 };
 
-// // 19. GET /api/notes/sort/pinned - Sort pinned notes
-// const sortPinnedNotes = async (req, res) => {
-//   try {
-//     const { field = 'createdAt', order = 'desc' } = req.query;
-//     const sortOrder = order === 'asc' ? 1 : -1;
+// 19. GET /api/notes/sort/pinned - Sort pinned notes
+const sortPinnedNotes = async (req, res) => {
+  try {
+    const { field = 'createdAt', order = 'desc' } = req.query;
+    const sortOrder = order === 'asc' ? 1 : -1;
 
-//     const validFields = ['title', 'createdAt', 'updatedAt', 'category'];
-//     if (!validFields.includes(field)) {
-//       return res.status(400).json({
-//         success: false,
-//         message: `Invalid sort field. Valid fields are: ${validFields.join(', ')}`
-//       });
-//     }
+    const validFields = ['title', 'createdAt', 'updatedAt', 'category'];
+    if (!validFields.includes(field)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid sort field. Valid fields are: ${validFields.join(', ')}`
+      });
+    }
 
-//     const notes = await Note.find({ isPinned: true }).sort({ [field]: sortOrder });
-//     res.status(200).json({
-//       success: true,
-//       message: `Pinned notes sorted by ${field} in ${order} order`,
-//       data: notes,
-//       sort: { field, order }
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+    const notes = await Note.find({ isPinned: true }).sort({ [field]: sortOrder });
+    res.status(200).json({
+      success: true,
+      message: `Pinned notes sorted by ${field} in ${order} order`,
+      data: notes,
+      sort: { field, order }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 module.exports = {
   createNote,
