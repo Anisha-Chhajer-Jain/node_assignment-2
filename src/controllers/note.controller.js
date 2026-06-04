@@ -137,69 +137,69 @@ const deleteBulkNotes = async (req, res) => {
   }
 };
 
-// // 9. GET /api/notes/category/:category - Get notes by category
-// const getNotesByCategory = async (req, res) => {
-//   try {
-//     const { category } = req.params;
-//     const notes = await Note.find({ category });
-//     if (notes.length === 0) {
-//       return res.status(404).json({
-//         success: false,
-//         message: `No notes found for category: ${category}`
-//       });
-//     }
-//     res.status(200).json({
-//       success: true,
-//       message: `Notes fetched for category: ${category}`,
-//       data: notes
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+// 9. GET /api/notes/category/:category - Get notes by category
+const getNotesByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const notes = await Note.find({ category });
+    if (notes.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No notes found for category: ${category}`
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Notes fetched for category: ${category}`,
+      data: notes
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
-// // 10. GET /api/notes/status/:isPinned - Get notes by pinned status
-// const getNotesByPinnedStatus = async (req, res) => {
-//   try {
-//     const { isPinned } = req.params;
-//     const isPinnedBool = isPinned === 'true';
-//     const notes = await Note.find({ isPinned: isPinnedBool });
-//     res.status(200).json({
-//       success: true,
-//       message: `Notes fetched with pinned status: ${isPinnedBool}`,
-//       data: notes,
-//       total: notes.length
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+// 10. GET /api/notes/status/:isPinned - Get notes by pinned status
+const getNotesByPinnedStatus = async (req, res) => {
+  try {
+    const { isPinned } = req.params;
+    const isPinnedBool = isPinned === 'true';
+    const notes = await Note.find({ isPinned: isPinnedBool });
+    res.status(200).json({
+      success: true,
+      message: `Notes fetched with pinned status: ${isPinnedBool}`,
+      data: notes,
+      total: notes.length
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
-// // 11. GET /api/notes/:id/summary - Get note summary
-// const getNoteSummary = async (req, res) => {
-//   try {
-//     const note = await Note.findById(req.params.id);
-//     if (!note) {
-//       return res.status(404).json({ success: false, message: "Note not found" });
-//     }
-//     const summary = {
-//       id: note._id,
-//       title: note.title,
-//       category: note.category,
-//       isPinned: note.isPinned,
-//       contentLength: note.content.length,
-//       createdAt: note.createdAt,
-//       updatedAt: note.updatedAt
-//     };
-//     res.status(200).json({
-//       success: true,
-//       message: "Note summary fetched successfully",
-//       data: summary
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+// 11. GET /api/notes/:id/summary - Get note summary
+const getNoteSummary = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) {
+      return res.status(404).json({ success: false, message: "Note not found" });
+    }
+    const summary = {
+      id: note._id,
+      title: note.title,
+      category: note.category,
+      isPinned: note.isPinned,
+      contentLength: note.content.length,
+      createdAt: note.createdAt,
+      updatedAt: note.updatedAt
+    };
+    res.status(200).json({
+      success: true,
+      message: "Note summary fetched successfully",
+      data: summary
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 // // 12. GET /api/notes/filter - Filter notes by category and isPinned
 // const filterNotes = async (req, res) => {
