@@ -332,69 +332,69 @@ const paginateNotes = async (req, res) => {
   }
 };
 
-// // 17. GET /api/notes/paginate/category/:category - Paginate notes by category
-// const paginateNotesByCategory = async (req, res) => {
-//   try {
-//     const { category } = req.params;
-//     const page = parseInt(req.query.page) || 1;
-//     const limit = parseInt(req.query.limit) || 10;
-//     const skip = (page - 1) * limit;
+// 17. GET /api/notes/paginate/category/:category - Paginate notes by category
+const paginateNotesByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
-//     const notes = await Note.find({ category }).skip(skip).limit(limit);
-//     const total = await Note.countDocuments({ category });
-//     const totalPages = Math.ceil(total / limit);
+    const notes = await Note.find({ category }).skip(skip).limit(limit);
+    const total = await Note.countDocuments({ category });
+    const totalPages = Math.ceil(total / limit);
 
-//     if (notes.length === 0 && page === 1) {
-//       return res.status(404).json({
-//         success: false,
-//         message: `No notes found for category: ${category}`
-//       });
-//     }
+    if (notes.length === 0 && page === 1) {
+      return res.status(404).json({
+        success: false,
+        message: `No notes found for category: ${category}`
+      });
+    }
 
-//     res.status(200).json({
-//       success: true,
-//       message: `Notes paginated for category: ${category}`,
-//       data: notes,
-//       pagination: {
-//         current_page: page,
-//         limit,
-//         total,
-//         total_pages: totalPages,
-//         has_next: page < totalPages,
-//         has_prev: page > 1,
-//         category
-//       }
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+    res.status(200).json({
+      success: true,
+      message: `Notes paginated for category: ${category}`,
+      data: notes,
+      pagination: {
+        current_page: page,
+        limit,
+        total,
+        total_pages: totalPages,
+        has_next: page < totalPages,
+        has_prev: page > 1,
+        category
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
-// // 18. GET /api/notes/sort - Sort all notes
-// const sortNotes = async (req, res) => {
-//   try {
-//     const { field = 'createdAt', order = 'desc' } = req.query;
-//     const sortOrder = order === 'asc' ? 1 : -1;
+// 18. GET /api/notes/sort - Sort all notes
+const sortNotes = async (req, res) => {
+  try {
+    const { field = 'createdAt', order = 'desc' } = req.query;
+    const sortOrder = order === 'asc' ? 1 : -1;
 
-//     const validFields = ['title', 'createdAt', 'updatedAt', 'category', 'isPinned'];
-//     if (!validFields.includes(field)) {
-//       return res.status(400).json({
-//         success: false,
-//         message: `Invalid sort field. Valid fields are: ${validFields.join(', ')}`
-//       });
-//     }
+    const validFields = ['title', 'createdAt', 'updatedAt', 'category', 'isPinned'];
+    if (!validFields.includes(field)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid sort field. Valid fields are: ${validFields.join(', ')}`
+      });
+    }
 
-//     const notes = await Note.find().sort({ [field]: sortOrder });
-//     res.status(200).json({
-//       success: true,
-//       message: `Notes sorted by ${field} in ${order} order`,
-//       data: notes,
-//       sort: { field, order }
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+    const notes = await Note.find().sort({ [field]: sortOrder });
+    res.status(200).json({
+      success: true,
+      message: `Notes sorted by ${field} in ${order} order`,
+      data: notes,
+      sort: { field, order }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 // // 19. GET /api/notes/sort/pinned - Sort pinned notes
 // const sortPinnedNotes = async (req, res) => {
