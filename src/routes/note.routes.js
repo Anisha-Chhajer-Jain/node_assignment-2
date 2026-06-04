@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const noteController = require('../controllers/note.controller');
 
-// Bulk routes must be first
 router.post('/bulk', noteController.createBulkNotes);
 router.delete('/bulk', noteController.deleteBulkNotes);
 
