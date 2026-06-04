@@ -8,7 +8,6 @@ app.use(express.json());
 
 app.use('/api/notes', noteRoutes);
 
-// Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
