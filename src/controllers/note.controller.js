@@ -263,45 +263,45 @@ const filterByCategory = async (req, res) => {
   }
 };
 
-// // 15. GET /api/notes/filter/date-range - Filter by date range
-// const filterByDateRange = async (req, res) => {
-//   try {
-//     const { startDate, endDate } = req.query;
+// 15. GET /api/notes/filter/date-range - Filter by date range
+const filterByDateRange = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
 
-//     if (!startDate || !endDate) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Both startDate and endDate query parameters are required"
-//       });
-//     }
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        success: false,
+        message: "Both startDate and endDate query parameters are required"
+      });
+    }
 
-//     const start = new Date(startDate);
-//     const end = new Date(endDate);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-//     if (start > end) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "startDate must be before endDate"
-//       });
-//     }
+    if (start > end) {
+      return res.status(400).json({
+        success: false,
+        message: "startDate must be before endDate"
+      });
+    }
 
-//     const notes = await Note.find({
-//       createdAt: {
-//         $gte: start,
-//         $lte: end
-//       }
-//     });
+    const notes = await Note.find({
+      createdAt: {
+        $gte: start,
+        $lte: end
+      }
+    });
 
-//     res.status(200).json({
-//       success: true,
-//       message: "Notes filtered by date range successfully",
-//       data: notes,
-//       total: notes.length
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+    res.status(200).json({
+      success: true,
+      message: "Notes filtered by date range successfully",
+      data: notes,
+      total: notes.length
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 // // 16. GET /api/notes/paginate - Paginate all notes
 // const paginateNotes = async (req, res) => {
